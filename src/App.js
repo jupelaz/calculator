@@ -8,7 +8,7 @@ function App() {
     console.log(e.target.value)
     if(["1","2","3","4","5","6","7","8","9","0"].includes(e.target.id)){
       console.log("Numerico")
-      setResultado(e.target.id.concat(resultado))
+      setResultado(resultado.concat(e.target.id))
     }
   }
   return (
