@@ -6,17 +6,23 @@ function App() {
   const [stringOperaciones, setStringOperaciones] = useState("")
   const [operaciones, setOperaciones] = useState([])
   const calcular = (numero1, numero2, operando) => {
-    if(operando === "plus") return numero1 + numero2
+    if (isNaN(numero1) || isNaN(numero2))return 0
+    else if(operando === "plus") return numero1 + numero2
     else if(operando === "minus") return numero1 - numero2
     else if(operando === "multi") return numero1 * numero2
-    else if(operando === "divi") return numero1 / numero2
+    else if(operando === "divi" && numero2 !== 0) return numero1 / numero2
+    else return 0
+  }
+  const initialize = () => {
+    setResultado("0")
+    setStringOperaciones("")
+    setOperaciones([])
   }
   const operar = (e) => {
     console.log(e.target.id)
     console.log(e.target.value)
     if(["1","2","3","4","5","6","7","8","9","0"].includes(e.target.id)){
-      console.log("Numerico")
-      if(resultado === "0"){
+      if(resultado === "0" || stringOperaciones === ""){
         setResultado(e.target.id)
       }else{
         setResultado(resultado.concat(e.target.id))
@@ -24,18 +30,24 @@ function App() {
       setStringOperaciones(stringOperaciones.concat(e.target.id))
     }
     else if(["plus","minus","igual"].includes(e.target.id)){
+      console.log(`Resultado: ${resultado}`)
       let numero = parseInt(resultado) 
       let operador = e.target.id 
       for(var i = operaciones.length - 1; i>=0;i--){
+        console.log(`For: ${operaciones[i][0]} operacion ${operaciones[i][1]}`)
         numero = calcular(operaciones[i][0],numero,operaciones[i][1])
       }
       
       if(e.target.id === "igual"){
+        console.log(`igual : ${numero}`)
         setOperaciones([])
-        setResultado(numero)
-        setStringOperaciones(numero)
+        setResultado(isNaN(numero)?"0":numero)
+        setStringOperaciones("")
       }else{
-        setOperaciones([[numero,operador]])
+        console.log(`suma o resta ${numero} y ${operador}`)
+        let array = new Array([numero,operador])
+        console.log(`${array[0][0]} ${array[0][1]}`)
+        setOperaciones(array)
         setResultado("")
         if(e.target.id === "plus"){
           setStringOperaciones(stringOperaciones.concat(" + "))
@@ -46,7 +58,9 @@ function App() {
       }
     }
     else if(["multi","divi"].includes(e.target.id)){
+      console.log(operaciones)
       setOperaciones(operaciones.concat([parseInt(resultado) ,e.target.id]))
+      console.log(operaciones)
       setResultado("")
       if(e.target.id === "multi"){
         setStringOperaciones(stringOperaciones.concat(" * "))
