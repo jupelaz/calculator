@@ -13,11 +13,6 @@ function App() {
     else if(operando === "divi" && numero2 !== 0) return numero1 / numero2
     else return 0
   }
-  const initialize = () => {
-    setResultado("0")
-    setStringOperaciones("")
-    setOperaciones([])
-  }
   const operar = (e) => {
     console.log(e.target.id)
     console.log(e.target.value)
