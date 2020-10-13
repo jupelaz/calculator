@@ -43,7 +43,7 @@ function App() {
         setOperaciones([])
         setResultado(isNaN(numero)?"0":numero)
         setStringOperaciones("")
-      }else{
+      }else{ 
         console.log(`suma o resta ${numero} y ${operador}`)
         let array = new Array([numero,operador])
         console.log(`${array[0][0]} ${array[0][1]}`)
