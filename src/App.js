@@ -30,23 +30,18 @@ function App() {
       setStringOperaciones(stringOperaciones.concat(e.target.id))
     }
     else if(["plus","minus","igual"].includes(e.target.id)){
-      console.log(`Resultado: ${resultado}`)
       let numero = parseInt(resultado) 
       let operador = e.target.id 
       for(var i = operaciones.length - 1; i>=0;i--){
-        console.log(`For: ${operaciones[i][0]} operacion ${operaciones[i][1]}`)
         numero = calcular(operaciones[i][0],numero,operaciones[i][1])
       }
       
       if(e.target.id === "igual"){
-        console.log(`igual : ${numero}`)
         setOperaciones([])
         setResultado(isNaN(numero)?"0":numero)
         setStringOperaciones("")
       }else{ 
-        console.log(`suma o resta ${numero} y ${operador}`)
         let array = new Array([numero,operador])
-        console.log(`${array[0][0]} ${array[0][1]}`)
         setOperaciones(array)
         setResultado("")
         if(e.target.id === "plus"){
@@ -54,13 +49,11 @@ function App() {
         }else{
           setStringOperaciones(stringOperaciones.concat(" - "))
         }
-        
       }
     }
     else if(["multi","divi"].includes(e.target.id)){
-      console.log(operaciones)
-      setOperaciones(operaciones.concat([parseInt(resultado) ,e.target.id]))
-      console.log(operaciones)
+      operaciones.push([resultado ,e.target.id])
+      setOperaciones(operaciones)
       setResultado("")
       if(e.target.id === "multi"){
         setStringOperaciones(stringOperaciones.concat(" * "))
@@ -79,7 +72,7 @@ function App() {
           <button className="operando" onClick={operar} id="1">1</button>
           <button className="operando" onClick={operar} id="2">2</button>
           <button className="operando" onClick={operar} id="3">3</button>
-          <button className="operando" onClick={operar} id="divi">%</button>
+          <button className="operando" onClick={operar} id="divi">/</button>
           <button className="operando" onClick={operar} id="4">4</button>
           <button className="operando" onClick={operar} id="5">5</button>
           <button className="operando" onClick={operar} id="6">6</button>
